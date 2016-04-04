@@ -1,0 +1,26 @@
+<html lang="pl">
+<head>
+	<title>Web Worker Project</title>
+</head>
+<body>
+	<p>
+		Ile slow chcesz skorzystac?<input type="text" id="num"/>
+		<button id="submit">Kliknij</button>	
+	</p>
+	<div id="panel"></div>
+	
+	<script>
+	var worker = new Worker("lipsum.js");
+	worker.onmessage=function(event)
+	{
+		document.getElementById("panel").innerText=event.data.lipsum;
+	};
+	
+	document.getElementById("submit").onclick=function()
+	{
+		var totalWords = document.getElementById("num").value;
+		worker.postMessage({num: totalWords});
+	};
+	</script>
+</body>
+</html>
